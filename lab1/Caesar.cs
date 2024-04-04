@@ -19,9 +19,13 @@ class Caesar
 					{
 						char encryptedCh;
 						if ('A' <= ch && ch <= 'Z')
-
 						{
-							encryptedCh = (char)('A' + (ch + key) % 'A');
+							encryptedCh = (char)(ch - 'A' + key);
+							if (encryptedCh > ('Z' - 'A'))
+							{
+								encryptedCh = (char)(encryptedCh % ('Z' - 'A' + 1));
+							}
+							encryptedCh += 'A';
 						}
 						else
 						{
@@ -54,9 +58,13 @@ class Caesar
 					{
 						char decryptedCh;
 						if ('A' <= ch && ch <= 'Z')
-
 						{
-							decryptedCh = (char)('A' + (ch - key + 'A') % 'A');
+							decryptedCh = (char)(ch + 'A' - key);
+							if (decryptedCh > ('Z' - 'A'))
+							{
+								decryptedCh = (char)(decryptedCh % ('Z' - 'A' + 1));
+							}
+							decryptedCh += 'A';
 						}
 						else
 						{

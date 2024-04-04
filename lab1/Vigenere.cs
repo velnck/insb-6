@@ -34,7 +34,12 @@ class Vigenere
 						if ('A' <= line[i] && line[i] <= 'Z')
 
 						{
-							encryptedCh = (char)('A' + (line[i] + fullKey[i] - 2 * 'A') % ('Z' - 'A' + 1));
+							encryptedCh = (char)(line[i] - 'A' + (fullKey[i] - 'A'));
+							if (encryptedCh > ('Z' - 'A'))
+							{
+								encryptedCh = (char)(encryptedCh % ('Z' - 'A' + 1));
+							}
+							encryptedCh += 'A';
 						}
 						else
 						{
@@ -69,7 +74,12 @@ class Vigenere
 						if ('A' <= line[i] && line[i] <= 'Z')
 
 						{
-							decryptedCh = (char)('A' + (line[i] - fullKey[i] + 'Z' - 'A' + 1) % ('Z' - 'A' + 1));
+							decryptedCh = (char)(line[i] + 'A' - (fullKey[i] - 'A'));
+							if (decryptedCh > ('Z' - 'A'))
+							{
+								decryptedCh = (char)(decryptedCh % ('Z' - 'A' + 1));
+							}
+							decryptedCh += 'A';
 						}
 						else
 						{
