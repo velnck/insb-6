@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Text;
 
+
 namespace kerberos
 {
 	internal class Des
 	{
-		private static byte[] InitialPermutationTable = new byte[]
-		{
+		private static readonly byte[] IP = {
 			58, 50, 42, 34, 26, 18, 10, 2,
 			60, 52, 44, 36, 28, 20, 12, 4,
 			62, 54, 46, 38, 30, 22, 14, 6,
@@ -16,97 +16,8 @@ namespace kerberos
 			61, 53, 45, 37, 29, 21, 13, 5,
 			63, 55, 47, 39, 31, 23, 15, 7
 		};
-		private static byte[] ExpansionTable = new byte[]
-		{
-			32, 1, 2, 3, 4, 5, 4, 5,
-			6, 7, 8, 9, 8, 9, 10, 11,
-			12, 13, 12, 13, 14, 15, 16, 17,
-			16, 17, 18, 19, 20, 21, 20, 21,
-			22, 23, 24, 25, 24, 25, 26, 27,
-			28, 29, 28, 29, 30, 31, 32, 1
-		};
-		private static byte[,,] SBoxes = new byte[,,]
-		{
-			{
-				{ 14,  4, 13, 1,  2, 15, 11,  8,  3, 10,  6, 12,  5,  9, 0,  7 },
-				{ 0,  15,  7, 4, 14,  2, 13,  1, 10,  6, 12, 11,  9,  5, 3,  8 },
-				{ 4,   1, 14, 8, 13,  6,  2, 11, 15, 12,  9,  7,  3, 10, 5,  0 },
-				{ 15, 12,  8, 2,  4,  9,  1,  7,  5, 11,  3, 14, 10,  0, 6, 13 }
-			},
-			{
-				{ 15, 1, 8, 14, 6, 11, 3, 4, 9, 7, 2, 13, 12, 0, 5, 10 },
-				{ 3, 13, 4, 7, 15, 2, 8, 14, 12, 0, 1, 10, 6, 9, 11, 5 },
-				{ 0, 14, 7, 11, 10, 4, 13, 1, 5, 8, 12, 6, 9, 3, 2, 15 },
-				{ 13, 8, 10, 1, 3, 15, 4, 2, 11, 6, 7, 12, 0, 5, 14, 9 }
-			},
-			{
-				{ 10, 0, 9, 14, 6, 3, 15, 5, 1, 13, 12, 7, 11, 4, 2, 8 },
-				{ 13, 7, 0, 9, 3, 4, 6, 10, 2, 8, 5, 14, 12, 11, 15, 1 },
-				{ 13, 6, 4, 9, 8, 15, 3, 0, 11, 1, 2, 12, 5, 10, 14, 7 },
-				{ 1, 10, 13, 0, 6, 9, 8, 7, 4, 15, 14, 3, 11, 5, 2, 12 }
-			},
-			{
-				{ 7, 13, 14, 3, 0, 6, 9, 10, 1, 2, 8, 5, 11, 12, 4, 15 },
-				{ 13, 8, 11, 5, 6, 15, 0, 3, 4, 7, 2, 12, 1, 10, 14, 9 },
-				{ 10, 6, 9, 0, 12, 11, 7, 13, 15, 1, 3, 14, 5, 2, 8, 4 },
-				{ 3, 15, 0, 6, 10, 1, 13, 8, 9, 4, 5, 11, 12, 7, 2, 14 }
-			},
-			{
-				{ 2, 12, 4, 1, 7, 10, 11, 6, 8, 5, 3, 15, 13, 0, 14, 9 },
-				{ 14, 11, 2, 12, 4, 7, 13, 1, 5, 0, 15, 10, 3, 9, 8, 6 },
-				{ 4, 2, 1, 11, 10, 13, 7, 8, 15, 9, 12, 5, 6, 3, 0, 14 },
-				{ 11, 8, 12, 7, 1, 14, 2, 13, 6, 15, 0, 9, 10, 4, 5, 3 }
-			},
-			{
-				{ 12, 1, 10, 15, 9, 2, 6, 8, 0, 13, 3, 4, 14, 7, 5, 11 },
-				{ 10, 15, 4, 2, 7, 12, 9, 5, 6, 1, 13, 14, 0, 11, 3, 8 },
-				{ 9, 14, 15, 5, 2, 8, 12, 3, 7, 0, 4, 10, 1, 13, 11, 6 },
-				{ 4, 3, 2, 12, 9, 5, 15, 10, 11, 14, 1, 7, 6, 0, 8, 13 }
-			},
-		   	{
-				{ 4, 11, 2, 14, 15, 0, 8, 13, 3, 12, 9, 7, 5, 10, 6, 1 },
-				{ 13, 0, 11, 7, 4, 9, 1, 10, 14, 3, 5, 12, 2, 15, 8, 6 },
-				{ 1, 4, 11, 13, 12, 3, 7, 14, 10, 15, 6, 8, 0, 5, 9, 2 },
-				{ 6, 11, 13, 8, 1, 4, 10, 7, 9, 5, 0, 15, 14, 2, 3, 12 }
-			},
-			{
-				{ 13, 2, 8, 4, 6, 15, 11, 1, 10, 9, 3, 14, 5, 0, 12, 7 },
-				{ 1, 15, 13, 8, 10, 3, 7, 4, 12, 5, 6, 11, 0, 14, 9, 2 },
-				{ 7, 11, 4, 1, 9, 12, 14, 2, 0, 6, 10, 13, 15, 3, 5, 8 },
-				{ 2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11 }
-			}
-		};
-		private static byte[] PTable = new byte[]
-		{
-			16, 7, 20, 21, 29, 12, 28, 17,
-			1, 15, 23, 26, 5, 18, 31, 10,
-			2, 8, 24, 14, 32, 27, 3, 9,
-			19, 13, 30, 6, 22, 11, 4, 25
-		};
-		private static byte[] PermutedChoiceTable = new byte[]
-		{
-			57, 49, 41, 33, 25, 17, 9, 1,
-			58, 50, 42, 34, 26, 18, 10, 2,
-			59, 51, 43, 35, 27, 19, 11, 3,
-			60, 52, 44, 36,
-			63, 55, 47, 39, 31, 23, 15, 7,
-			62, 54, 46, 38, 30, 22, 14, 6,
-			61, 53, 45, 37, 29, 21, 13, 5,
-			28, 20, 12, 4
-		};
-		private static byte[] KeyShiftTable = new byte[]
-		{
-			1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1
-		};
-		private static byte[] KeyCompressionTable = new byte[]
-		{
-			14, 17, 11, 24, 1, 5, 3, 28, 15, 6, 21, 10,
-			23, 19, 12, 4, 26, 8, 16, 7, 27, 20, 13, 2,
-			41, 52, 31, 37, 47, 55, 30, 40, 51, 45, 33, 48,
-			44, 49, 39, 56, 34, 53, 46, 42, 50, 36, 29, 32
-		};
-		private static byte[] FinalPermutationTable = new byte[]
-		{
+
+		private static readonly byte[] FP = {
 			40, 8, 48, 16, 56, 24, 64, 32,
 			39, 7, 47, 15, 55, 23, 63, 31,
 			38, 6, 46, 14, 54, 22, 62, 30,
@@ -116,233 +27,281 @@ namespace kerberos
 			34, 2, 42, 10, 50, 18, 58, 26,
 			33, 1, 41, 9, 49, 17, 57, 25
 		};
-		public static byte[] Encrypt(byte[] message, byte[] key)
+
+		private static readonly byte[] K1P = {
+			57, 49, 41, 33, 25, 17, 9, 1,
+			58, 50, 42, 34, 26, 18, 10, 2,
+			59, 51, 43, 35, 27, 19, 11, 3,
+			60, 52, 44, 36
+		};
+
+		private static readonly byte[] K2P = {
+			63, 55, 47, 39, 31, 23, 15, 7,
+			62, 54, 46, 38, 30, 22, 14, 6,
+			61, 53, 45, 37, 29, 21, 13, 5,
+			28, 20, 12, 4
+		};
+
+		private static readonly byte[] CP = {
+			14, 17, 11, 24, 1, 5, 3, 28,
+			15, 6, 21, 10, 23, 19, 12, 4,
+			26, 8, 16, 7, 27, 20, 13, 2,
+			41, 52, 31, 37, 47, 55, 30, 40,
+			51, 45, 33, 48, 44, 49, 39, 56,
+			34, 53, 46, 42, 50, 36, 29, 32
+		};
+
+		private static readonly byte[] EP = {
+			32, 1, 2, 3, 4, 5, 4, 5,
+			6, 7, 8, 9, 8, 9, 10, 11,
+			12, 13, 12, 13, 14, 15, 16, 17,
+			16, 17, 18, 19, 20, 21, 20, 21,
+			22, 23, 24, 25, 24, 25, 26, 27,
+			28, 29, 28, 29, 30, 31, 32, 1
+		};
+
+		private static readonly byte[] P = {
+			16, 7, 20, 21, 29, 12, 28, 17,
+			1, 15, 23, 26, 5, 18, 31, 10,
+			2, 8, 24, 14, 32, 27, 3, 9,
+			19, 13, 30, 6, 22, 11, 4, 25
+		};
+
+		private static readonly byte[,,] SBox = {
+			{
+				{ 14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7 },
+				{ 0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8 },
+				{ 4, 1, 14, 8, 13, 6, 2, 11, 15, 12, 9, 7, 3, 10, 5, 0 },
+				{ 15, 12, 8, 2, 4, 9, 1, 7, 5, 11, 3, 14, 10, 0, 6, 13 }
+			}, {
+				{ 15, 1, 8, 14, 6, 11, 3, 4, 9, 7, 2, 13, 12, 0, 5, 10 },
+				{ 3, 13, 4, 7, 15, 2, 8, 14, 12, 0, 1, 10, 6, 9, 11, 5 },
+				{ 0, 14, 7, 11, 10, 4, 13, 1, 5, 8, 12, 6, 9, 3, 2, 15 },
+				{ 13, 8, 10, 1, 3, 15, 4, 2, 11, 6, 7, 12, 0, 5, 14, 9 }
+			}, {
+				{ 10, 0, 9, 14, 6, 3, 15, 5, 1, 13, 12, 7, 11, 4, 2, 8 },
+				{ 13, 7, 0, 9, 3, 4, 6, 10, 2, 8, 5, 14, 12, 11, 15, 1 },
+				{ 13, 6, 4, 9, 8, 15, 3, 0, 11, 1, 2, 12, 5, 10, 14, 7 },
+				{ 1, 10, 13, 0, 6, 9, 8, 7, 4, 15, 14, 3, 11, 5, 2, 12 }
+			}, {
+				{ 7, 13, 14, 3, 0, 6, 9, 10, 1, 2, 8, 5, 11, 12, 4, 15 },
+				{ 13, 8, 11, 5, 6, 15, 0, 3, 4, 7, 2, 12, 1, 10, 14, 9 },
+				{ 10, 6, 9, 0, 12, 11, 7, 13, 15, 1, 3, 14, 5, 2, 8, 4 },
+				{ 3, 15, 0, 6, 10, 1, 13, 8, 9, 4, 5, 11, 12, 7, 2, 14 }
+			}, {
+				{ 2, 12, 4, 1, 7, 10, 11, 6, 8, 5, 3, 15, 13, 0, 14, 9 },
+				{ 14, 11, 2, 12, 4, 7, 13, 1, 5, 0, 15, 10, 3, 9, 8, 6 },
+				{ 4, 2, 1, 11, 10, 13, 7, 8, 15, 9, 12, 5, 6, 3, 0, 14 },
+				{ 11, 8, 12, 7, 1, 14, 2, 13, 6, 15, 0, 9, 10, 4, 5, 3 }
+			}, {
+				{ 12, 1, 10, 15, 9, 2, 6, 8, 0, 13, 3, 4, 14, 7, 5, 11 },
+				{ 10, 15, 4, 2, 7, 12, 9, 5, 6, 1, 13, 14, 0, 11, 3, 8 },
+				{ 9, 14, 15, 5, 2, 8, 12, 3, 7, 0, 4, 10, 1, 13, 11, 6 },
+				{ 4, 3, 2, 12, 9, 5, 15, 10, 11, 14, 1, 7, 6, 0, 8, 13 }
+			}, {
+				{ 4, 11, 2, 14, 15, 0, 8, 13, 3, 12, 9, 7, 5, 10, 6, 1 },
+				{ 13, 0, 11, 7, 4, 9, 1, 10, 14, 3, 5, 12, 2, 15, 8, 6 },
+				{ 1, 4, 11, 13, 12, 3, 7, 14, 10, 15, 6, 8, 0, 5, 9, 2 },
+				{ 6, 11, 13, 8, 1, 4, 10, 7, 9, 5, 0, 15, 14, 2, 3, 12 }
+			}, {
+				{ 13, 2, 8, 4, 6, 15, 11, 1, 10, 9, 3, 14, 5, 0, 12, 7 },
+				{ 1, 15, 13, 8, 10, 3, 7, 4, 12, 5, 6, 11, 0, 14, 9, 2 },
+				{ 7, 11, 4, 1, 9, 12, 14, 2, 0, 6, 10, 13, 15, 3, 5, 8 },
+				{ 2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11 }
+			}
+		};
+
+		private static readonly byte[] ShiftBits = {
+			1, 1, 2, 2, 2, 2, 2, 2,
+			1, 2, 2, 2, 2, 2, 2, 1
+		};
+
+		public static byte[] Encrypt(string message, string key)
 		{
-			List<BitArray> blocks = GetBlocks(message);
-			List<BitArray> encryptedBlocks = new List<BitArray>();
-			foreach (BitArray block in blocks)
-			{
-				//PrintValues(block, block.Count);
-				BitArray keyBits = new BitArray(key);
-				for (int byteIdx = 0; byteIdx < keyBits.Length / 8; byteIdx++)
-				{
-					for (int bitIdx = 0; bitIdx < 4; bitIdx++)
-					{
-						bool temp = keyBits[byteIdx * 8 + bitIdx];
-						keyBits[byteIdx * 8 + bitIdx] = keyBits[(byteIdx + 1) * 8 - bitIdx - 1];
-						keyBits[(byteIdx + 1) * 8 - bitIdx - 1] = temp;
-					}
-				}
-				BitArray encryptedBlock = ProcessBlock(block, GetKeys(keyBits));
-				encryptedBlocks.Add(encryptedBlock);
-			}
-			byte[] encryptedMessage = new byte[encryptedBlocks.Count * 8];
-			for (int i = 0; i < encryptedBlocks.Count; i++)
-			{
-				encryptedBlocks[i].CopyTo(encryptedMessage, i * 8);
-			}
-			return encryptedMessage;
+			var messageBytes = Encoding.Default.GetBytes(message);
+			return DesAlgorithm(messageBytes, GetKeyBytes(key), true);
 		}
 
-		private static List<BitArray> GetBlocks(byte[] message)
+		public static string Decrypt(ReadOnlySpan<byte> encryptedMessage, string key)
 		{
-			while (message.Count() % 8 != 0)
-			{
-				message = message.Concat(new byte[] { 0 }).ToArray();
-			}
-			BitArray messageBits = new BitArray(message);
-			for (int byteIdx = 0; byteIdx < messageBits.Length / 8; byteIdx++)
-			{
-				for (int bitIdx = 0; bitIdx < 4; bitIdx++)
-				{
-					bool temp = messageBits[byteIdx * 8 + bitIdx];
-					messageBits[byteIdx * 8 + bitIdx] = messageBits[(byteIdx + 1) * 8 - bitIdx - 1];
-					messageBits[(byteIdx + 1) * 8 - bitIdx - 1] = temp;
-				}
-			}
-			List<BitArray> blocks = new List<BitArray>();
-			for (int i = 0; i < messageBits.Count; i += 64)
-			{
-				BitArray block = new BitArray(64);
-				for (int j = 0; j < 64; j++)
-				{
-					block[j] = messageBits[i + j];
-				}
-				blocks.Add(block);
-			}
-			return blocks;
+			var decryptedMessage = DesAlgorithm(encryptedMessage, GetKeyBytes(key), false);
+			return Encoding.Default.GetString(decryptedMessage);
 		}
 
-		private static BitArray ProcessBlock(BitArray block, List<BitArray> keys)
+		private static byte[] EnlargeMessage(ReadOnlySpan<byte> originalMessage)
 		{
-			BitArray permutedBlock = new BitArray(64);
-			for (int i = 0; i < block.Count; i++)
+			var length = originalMessage.Length;
+			if (length % 8 != 0)
 			{
-				permutedBlock[i] = block[InitialPermutationTable[i] - 1];
-			}
-			//Console.WriteLine("permuted block");
-			//PrintValues(permutedBlock, permutedBlock.Count);
-
-			BitArray prevRight;
-			BitArray left = new BitArray(32);
-			BitArray right = new BitArray(32);
-			BitArray rightExpanded = new BitArray(48);
-
-			for (int i = 0; i < 32; i++)
-			{
-				left[i] = permutedBlock[i];
-				right[i] = permutedBlock[i + 32];
+				length += 8 - length % 8;
 			}
 
-			for (int round = 0; round < 16; round++)
-			{
-				BitArray roundKey = keys[round];
-				//Console.WriteLine("right");
-				//PrintValues(right, right.Count);
-				for (int i = 0; i < rightExpanded.Count; i++)
-				{
-					rightExpanded[i] = right[ExpansionTable[i] - 1];
-				}
-				//Console.WriteLine("right expanded");
-				//PrintValues(rightExpanded, rightExpanded.Count);
-				prevRight = new BitArray(right);
-
-				//Console.WriteLine("round key");
-				//PrintValues(roundKey, roundKey.Count);
-				rightExpanded.Xor(roundKey);
-				Console.WriteLine("xored right expanded");
-				PrintValues(rightExpanded, rightExpanded.Count);
-				right = SBoxesTransformation(rightExpanded);
-				Console.WriteLine("right afrter s boxes");
-				PrintValues(right, right.Count);
-				BitArray permutedRight = new BitArray(32);
-				for (int i = 0; i < permutedRight.Count; i++)
-				{
-					permutedRight[i] = right[PTable[i] - 1];
-				}
-				permutedRight.Xor(left);
-				right = new BitArray(permutedRight);
-				left = prevRight;
-			}
-			bool[] resultBlock = new bool[64];
-			left.CopyTo(resultBlock, 0);
-			right.CopyTo(resultBlock, 32);
-
-			BitArray permutedResultBlock = new BitArray(resultBlock.Length);
-			for (int i = 0; i < permutedResultBlock.Length; i++)
-			{
-				permutedResultBlock[i] = resultBlock[FinalPermutationTable[i] - 1];
-			}
-			return new BitArray(resultBlock);
+			var enlargedMessage = new byte[length];
+			originalMessage.CopyTo(enlargedMessage);
+			return enlargedMessage;
 		}
 
-		private static BitArray SBoxesTransformation(BitArray bitArray)
+		private static byte[] DesAlgorithm(ReadOnlySpan<byte> originalMessage, byte[] keyBytes, bool encrypt)
 		{
-			BitArray result = new BitArray(32);
-			for (int i = 0; i < bitArray.Count / 6; i++)
+			var messageBytes = EnlargeMessage(originalMessage);
+			var numOfParts = messageBytes.Length / 8;
+
+			var subKeys = CreateSubKeys(keyBytes);
+
+			var tasks = new Task[numOfParts];
+
+			for (var i = 0; i < numOfParts; i++)
 			{
-				int row = 2 * Convert.ToInt32(bitArray[i * 6]) + Convert.ToInt32(bitArray[i * 6 + 5]);
-				int col = 8 * Convert.ToInt32(bitArray[i * 6 + 1]) + 4 * Convert.ToInt32(bitArray[i * 6 + 2])
-					+ 2 * Convert.ToInt32(bitArray[i * 6 + 3]) + Convert.ToInt32(bitArray[i * 6 + 4]);
-				byte sBoxValue = SBoxes[i, row, col];
-				for (int j = 0; j < 4; j++)
-				{
-					result[i * 4 + j] = (sBoxValue & Convert.ToByte(Math.Pow(2, (3 - j)))) > 0;
-				}
+				var k = i;
+				tasks[i] = Task.Run(() => {
+					var messagePart = messageBytes.AsSpan().Slice(k * 8, 8);
+					FeistelCypher(messagePart, subKeys, encrypt);
+				});
 			}
-			return result;
+
+			Task.WaitAll(tasks);
+
+			return messageBytes;
 		}
 
-		private static List<BitArray> GetKeys(BitArray key)
+		private static BitArray[] CreateSubKeys(byte[] keyBytes)
 		{
-			//Console.WriteLine("initial key");
-			//PrintValues(key, key.Length);
-			List<BitArray> keys = new List<BitArray>();
-			BitArray permutedKey = new BitArray(56);
-			for (int i = 0; i < permutedKey.Count; i++)
+			Array.Reverse(keyBytes);
+			var keyBits = new BitArray(keyBytes);
+			var left = new bool[28];
+			var right = new bool[28];
+			for (var i = 0; i < 28; i++)
 			{
-				permutedKey[i] = key[PermutedChoiceTable[i] - 1];
+				left[27 - i] = keyBits[64 - K1P[i]];
+				right[27 - i] = keyBits[64 - K2P[i]];
 			}
-			//Console.WriteLine("permuted key");
-			//PrintValues(permutedKey, permutedKey.Length);
-			BitArray prevLeftKey = new BitArray(28);
-			BitArray prevRightKey = new BitArray(28);
 
-			for (int i = 0; i < 28; i++)
+			var subKeys = new BitArray[16];
+			var temp = new BitArray(56);
+
+			for (var i = 0; i < 16; i++)
 			{
-				prevLeftKey[i] = permutedKey[i];
-				prevRightKey[i] = permutedKey[i + 28];
-			}
-			//Console.WriteLine("prev right key");
-			//PrintValues(prevRightKey, prevRightKey.Length);
-			for (int roundNumber = 0; roundNumber < 16; roundNumber++)
-			{
-				for (int shift = 0; shift < KeyShiftTable[roundNumber]; shift++)
+				left.Rotate(ShiftBits[i]);
+				right.Rotate(ShiftBits[i]);
+
+				var subKey = new BitArray(48);
+				for (var j = 0; j < 28; j++)
 				{
-					bool temp = prevLeftKey[0];
-					prevLeftKey.LeftShift(1);
-					prevLeftKey[27] = temp;
-					temp = prevRightKey[0];
-					prevRightKey.LeftShift(1);
-					prevRightKey[27] = temp;
+					temp[j] = right[j];
+					temp[j + 28] = left[j];
 				}
-				BitArray currentKey = new BitArray(48);
-				for (int i = 0; i < currentKey.Count; i++)
+
+				for (var j = 0; j < 48; j++)
 				{
-					if (KeyCompressionTable[i] <= 28)
-					{
-						currentKey[i] = prevLeftKey[KeyCompressionTable[i] - 1];
-					}
-					else
-					{
-						currentKey[i] = prevRightKey[KeyCompressionTable[i] - 1 - 28];
-					}
+					subKey[47 - j] = temp[56 - CP[j]];
 				}
-				keys.Add(currentKey);
+
+				subKeys[i] = subKey;
 			}
-			return keys;
+
+			return subKeys;
 		}
 
-		public static byte[] Decrypt(byte[] message, byte[] key)
+		private static void FeistelCypher(Span<byte> messageBytes, IReadOnlyList<BitArray> subKeys, bool encrypt)
 		{
-			List<BitArray> blocks = GetBlocks(message);
-			List<BitArray> decryptedBlocks = new List<BitArray>();
-			foreach (BitArray block in blocks)
+			messageBytes.Reverse();
+			var messageBits = new BitArray(64);
+			for (var i = 0; i < 8; i++)
 			{
-				//PrintValues(block, block.Count);
-				List<BitArray> keys = GetKeys(new BitArray(key));
-				for (int i = 0; i < 8; i++)
+				var messageByte = messageBytes[i];
+				for (var j = 0; j < 8; j++)
 				{
-					BitArray temp = keys[i];
-					keys[i] = keys[15 - i];
-					keys[15 - i] = temp;
+					messageBits[i * 8 + j] = Convert.ToBoolean(messageByte >> j & 1);
 				}
-				BitArray decryptedBlock = ProcessBlock(block, keys);
-				decryptedBlocks.Add(decryptedBlock);
 			}
-			byte[] decryptedMessage = new byte[decryptedBlocks.Count * 8];
-			for (int i = 0; i < decryptedBlocks.Count; i++)
+
+			var left = new BitArray(32);
+			var right = new BitArray(32);
+			for (var i = 0; i < 32; i++)
 			{
-				decryptedBlocks[i].CopyTo(decryptedMessage, i * 8);
+				left[31 - i] = messageBits[64 - IP[i]];
+				right[31 - i] = messageBits[64 - IP[i + 32]];
 			}
-			return decryptedMessage;
+
+			var temp = new BitArray(32);
+			for (var i = 0; i < 16; i++)
+			{
+				for (var j = 0; j < 32; j++)
+				{
+					temp[j] = right[j];
+				}
+
+				var subKey = encrypt ? subKeys[i] : subKeys[15 - i];
+				F(right, subKey);
+				right = right.Xor(left);
+
+				(left, temp) = (temp, left);
+			}
+
+			var leftRight = new BitArray(64);
+			for (var i = 0; i < 32; i++)
+			{
+				leftRight[i] = left[i];
+				leftRight[i + 32] = right[i];
+			}
+
+			for (var i = 0; i < 64; i++)
+			{
+				messageBits[63 - i] = leftRight[64 - FP[i]];
+			}
+
+			var tempByteArray = new byte[8];
+			messageBits.CopyTo(tempByteArray, 0);
+			tempByteArray.CopyTo(messageBytes);
+			messageBytes.Reverse();
 		}
-		private static void PrintValues(IEnumerable myList, int myWidth)
+
+		private static void F(BitArray right, BitArray subKey)
 		{
-			int i = myWidth;
-			foreach (Object obj in myList)
+			var extended = new BitArray(48);
+			for (var j = 0; j < 48; j++)
 			{
-				if (i <= 0)
-				{
-					i = myWidth;
-					Console.WriteLine();
-				}
-				i--;
-				Console.Write("{0,8}", Convert.ToInt32(obj));
+				extended[47 - j] = right[32 - EP[j]];
 			}
-			Console.WriteLine();
-			Console.WriteLine();
-			Console.WriteLine();
+
+			var result = extended.Xor(subKey);
+
+			var newRight = new BitArray(32);
+
+			for (var j = 0; j < 8; j++)
+			{
+				var pack = j * 6;
+
+				byte row = 0;
+				row |= Convert.ToByte(result[pack]);
+				row |= (byte)(Convert.ToInt32(result[pack + 5]) << 1);
+
+				byte column = 0;
+				for (var k = 0; k < 4; k++)
+				{
+					column |= (byte)(Convert.ToInt32(result[pack + k + 1]) << k);
+				}
+
+				var value = SBox[7 - j, row, column];
+
+				for (var k = 0; k < 4; k++)
+				{
+					newRight[j * 4 + k] = Convert.ToBoolean(value >> k & 1);
+				}
+			}
+
+			for (var j = 0; j < 32; j++)
+			{
+				right[31 - j] = newRight[32 - P[j]];
+			}
+		}
+
+		private static byte[] GetKeyBytes(string key)
+		{
+			const int keyLength = 8;
+			var keyBytes = new byte[keyLength];
+			Encoding.Default.GetBytes(key).AsSpan()[..8].CopyTo(keyBytes);
+			return keyBytes;
 		}
 	}
 }
