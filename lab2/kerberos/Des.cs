@@ -2,7 +2,7 @@
 using System.Text;
 
 
-namespace kerberos
+namespace Kerberos
 {
 	internal class Des
 	{

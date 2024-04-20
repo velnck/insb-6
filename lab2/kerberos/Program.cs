@@ -1,13 +1,17 @@
-﻿using kerberos;
+﻿using Kerberos;
+using Kerberos.Tickets;
+using Kerberos.Servers;
+using System.Text;
 
+AuthenticationServer authenticationServer = new();
+TicketGrantingServer ticketGrantingServer = new();
+ServiceServer serviceServer = new();
 
-string message = "ABCDEFGH";
-string key = "HBGYOJIN";
+authenticationServer.SetupServer();
+ticketGrantingServer.SetupServer();
+serviceServer.SetupServer();
 
-Console.WriteLine($"Initial message: {message}");
+Client client = new Client("user1", "abcdefgh");
+client.Authenticate();
 
-var encryptedMessage = Des.Encrypt(message, key);
-Console.WriteLine($"Encrypted message: {Convert.ToHexString(encryptedMessage)}");
-
-var decryptedMessage = Des.Decrypt(encryptedMessage, key);
-Console.WriteLine($"Decrypted message: {decryptedMessage}");
+Console.ReadLine();
