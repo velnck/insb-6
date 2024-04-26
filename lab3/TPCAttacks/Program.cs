@@ -13,8 +13,8 @@ ResetAttack reset = new ResetAttack(client.Port, server.EndPoint);
 try
 {
 	Task.WaitAll([server.Listen(token),
-		//reset.Attack(token),
-		synFlood.Attack(),
+		reset.Attack(token),
+		//synFlood.Attack(),
 		client.ConnectToServer(server.EndPoint, cancelTokenSource)]);
 
 	Thread.Sleep(500);

