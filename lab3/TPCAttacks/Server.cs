@@ -16,15 +16,15 @@ namespace TCPAttacks
 			EndPoint = new (IPAddress.Loopback, port);
 		}
 
-		//Нужно для того, чтобы раазорвать соединение с конкретным клиентом
-		//т.к. шарпы не позволят подключиться к серверу с аналогичными данными
-		//ключ - порт
 		private readonly Dictionary<int, Socket> _clients = [];
+		private List<Socket> _halfOpenConnections = new List<Socket>();
+		private int _maxHalfOpenConnections = 8;
+		private int _receiveTimeout = 1000;
 
 		public async Task Listen(CancellationToken token)
 		{
 			Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			socket.ReceiveTimeout = 1000;
+			socket.ReceiveTimeout = _receiveTimeout;
 
 			try
 			{
@@ -32,7 +32,6 @@ namespace TCPAttacks
 				socket.Listen(8);
 				Console.WriteLine($"Server: {EndPoint}");
 
-				// Бесконечный цикл для прослушивания новых подключений
 				while (true)
 				{
 					if (token.IsCancellationRequested)
@@ -42,10 +41,11 @@ namespace TCPAttacks
 					Socket clientSocket = await socket.AcceptAsync(token);
 					Console.WriteLine($"Connecting client: {clientSocket.RemoteEndPoint}");
 
+					AddHalfOpenConnection(clientSocket);
 					_clients.Add((clientSocket.RemoteEndPoint as IPEndPoint).Port, clientSocket);
 
 					Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClient));
-					clientThread.Start((clientSocket.RemoteEndPoint as IPEndPoint).Port);
+					clientThread.Start(clientSocket);
 				}
 			}
 			catch (OperationCanceledException)
@@ -58,7 +58,8 @@ namespace TCPAttacks
 
 		private void HandleClient(object obj)
 		{
-			int port = (int)obj;
+			Socket clientSocket = (Socket)obj;
+			int port = (clientSocket.RemoteEndPoint as IPEndPoint).Port;
 			try
 			{
 				// receive syn packet
@@ -81,6 +82,7 @@ namespace TCPAttacks
 				{
 					throw new Exception($"Invalid ACK packet from {port}:\n" + packet.ToString());
 				}
+
 				Console.WriteLine("\nClient connected.\nServer starts sending message.\n");
 
 				StringBuilder str = new();
@@ -121,8 +123,22 @@ namespace TCPAttacks
 			}
 			finally
 			{
-				if (_clients[port].Connected)
+				if (_clients.ContainsKey(port) && _clients[port].Connected)
+				{
 					_clients[port].Close();
+				}
+			}
+		}
+
+		private void AddHalfOpenConnection(Socket socket)
+		{
+			if (_halfOpenConnections.Count >= _maxHalfOpenConnections)
+			{
+				throw new Exception("Server cannot accept SYN packets anymore.");
+			}
+			else
+			{
+				_halfOpenConnections.Add(socket);
 			}
 		}
 

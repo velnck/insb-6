@@ -46,7 +46,7 @@ namespace TCPAttacks
 				}
 				while (!packet.FIN);
 
-				Console.WriteLine($"Received message from server: \"{serverMessage}\".");
+				Console.WriteLine($"Client {Port} received message from server: \"{serverMessage}\".");
 			}
 			catch (Exception ex)
 			{

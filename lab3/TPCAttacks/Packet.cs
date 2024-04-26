@@ -24,10 +24,6 @@
 				$"\tFlags: ACK = {ACK}, FIN = {FIN}, RST = {RST}, SYN = {SYN}.";
 		}
 
-		/// <summary>
-		/// Метод для создания пустого пакета с конкретными флагами.
-		/// Например, подтверждение получения, сброс соединения и т.к.
-		/// </summary>
 		public static Packet GetEmptyPacket(ushort windowsSize, int sourcePort, int destinationPort,
 												uint seqNum, uint ackNum,
 												bool ack = false, bool syn = false, bool rst = false, bool fin = false)
@@ -46,9 +42,6 @@
 			};
 		}
 
-		/// <summary>
-		/// Преобразование набора в байт в массив пакетов, в заависимости от размера окна пользователя
-		/// </summary>
 		public static IEnumerable<Packet> GetPackets(byte[] data, ushort windowsSize, 
 			int sourcePort, int destinationPort, uint seqNum, uint ackNum)
 		{
