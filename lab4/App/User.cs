@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
 
 namespace App
@@ -17,6 +15,8 @@ namespace App
 		public Role Role { get; set; }
 		[JsonProperty("Records")]
 		public List<string> Records = new List<string>();
+		[JsonIgnore]
+		public bool IsLoggedIn { get; set; } = false;
 
 		public User(string username, string password, Role role, List<string> records)
 		{
@@ -34,7 +34,14 @@ namespace App
 		}
 		public void AddRecord(string record)
 		{
-			Records.Add(record);
+			if (IsLoggedIn)
+			{
+				Records.Add(record);
+			}
+			else
+			{
+				throw new Exception("User is not logged in.");
+			}
 		}
 	}
 	public class UsersList
@@ -42,7 +49,7 @@ namespace App
 		private static List<User> _users = null;
 		public static readonly string FileName = @"D:\univ\labs\s6\исоб\labs\lab4\App\data.json";
 
-		public static User Find(string username)
+		private static User Find(string username)
 		{
 			if (_users == null)
 			{
@@ -67,6 +74,40 @@ namespace App
 		public static void AddNewUser(string username, string password)
 		{
 			_users.Add(new User(username, password, Role.User, null));
+		}
+
+		internal static User? LogIn(string username, string password)
+		{
+			User user = Find(username);
+			if (user == null)
+			{
+				throw new Exception("User not found.");
+			}
+			else if (user.IsLoggedIn) {
+				throw new Exception("User is already logged in.");
+			}
+			else
+			{
+				if (user.CheckIsPasswordCorrect(password))
+				{
+					user.IsLoggedIn = true;
+					return user;
+				}
+				else
+				{
+					return null;
+				}
+			}
+		}
+
+		internal static bool Exists(string username)
+		{
+			return Find(username) != null;
+		}
+
+		internal static void LogOut(User user)
+		{
+			user.IsLoggedIn = false;
 		}
 	}
 }

@@ -39,13 +39,14 @@ namespace App
 			usernameTextBox = new TextBox();
 			createButton = new Button();
 			titlelabel = new Label();
+			logOutButton = new Button();
 			SuspendLayout();
 			// 
 			// passwordLabel
 			// 
 			passwordLabel.AutoSize = true;
 			passwordLabel.Font = new Font("Microsoft Sans Serif", 11F);
-			passwordLabel.Location = new Point(187, 218);
+			passwordLabel.Location = new Point(175, 258);
 			passwordLabel.Name = "passwordLabel";
 			passwordLabel.Size = new Size(92, 24);
 			passwordLabel.TabIndex = 9;
@@ -55,7 +56,7 @@ namespace App
 			// 
 			usernameLabel.AutoSize = true;
 			usernameLabel.Font = new Font("Microsoft Sans Serif", 11F);
-			usernameLabel.Location = new Point(187, 159);
+			usernameLabel.Location = new Point(175, 199);
 			usernameLabel.Name = "usernameLabel";
 			usernameLabel.Size = new Size(97, 24);
 			usernameLabel.TabIndex = 8;
@@ -64,7 +65,7 @@ namespace App
 			// passwordTextBox
 			// 
 			passwordTextBox.Font = new Font("Microsoft Sans Serif", 11F);
-			passwordTextBox.Location = new Point(408, 213);
+			passwordTextBox.Location = new Point(396, 253);
 			passwordTextBox.Margin = new Padding(3, 4, 3, 4);
 			passwordTextBox.Name = "passwordTextBox";
 			passwordTextBox.Size = new Size(229, 28);
@@ -73,7 +74,7 @@ namespace App
 			// usernameTextBox
 			// 
 			usernameTextBox.Font = new Font("Microsoft Sans Serif", 11F);
-			usernameTextBox.Location = new Point(408, 154);
+			usernameTextBox.Location = new Point(396, 194);
 			usernameTextBox.Margin = new Padding(3, 4, 3, 4);
 			usernameTextBox.Name = "usernameTextBox";
 			usernameTextBox.Size = new Size(229, 28);
@@ -82,7 +83,7 @@ namespace App
 			// createButton
 			// 
 			createButton.Font = new Font("Microsoft Sans Serif", 11F);
-			createButton.Location = new Point(343, 322);
+			createButton.Location = new Point(331, 362);
 			createButton.Margin = new Padding(3, 4, 3, 4);
 			createButton.Name = "createButton";
 			createButton.Size = new Size(102, 35);
@@ -95,17 +96,29 @@ namespace App
 			// 
 			titlelabel.AutoSize = true;
 			titlelabel.Font = new Font("Segoe UI", 13F);
-			titlelabel.Location = new Point(321, 76);
+			titlelabel.Location = new Point(309, 116);
 			titlelabel.Name = "titlelabel";
 			titlelabel.Size = new Size(146, 30);
 			titlelabel.TabIndex = 10;
 			titlelabel.Text = "Add new user";
+			// 
+			// logOutButton
+			// 
+			logOutButton.Font = new Font("Microsoft Sans Serif", 9F);
+			logOutButton.Location = new Point(662, 26);
+			logOutButton.Margin = new Padding(3, 4, 3, 4);
+			logOutButton.Name = "logOutButton";
+			logOutButton.Size = new Size(102, 31);
+			logOutButton.TabIndex = 11;
+			logOutButton.Text = "Log out";
+			logOutButton.UseVisualStyleBackColor = true;
 			// 
 			// AdminForm
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
+			Controls.Add(logOutButton);
 			Controls.Add(titlelabel);
 			Controls.Add(passwordLabel);
 			Controls.Add(usernameLabel);
@@ -126,5 +139,6 @@ namespace App
 		private TextBox usernameTextBox;
 		private Button createButton;
 		private Label titlelabel;
+		private Button logOutButton;
 	}
 }

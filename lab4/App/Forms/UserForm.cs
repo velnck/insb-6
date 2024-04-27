@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace App
+﻿namespace App
 {
 	public partial class UserForm : Form
 	{
@@ -28,10 +18,22 @@ namespace App
 			string text = inputTextBox.Text;
 			if (text.Length > 0)
 			{
-				_currentUser.AddRecord(text);
+				try
+				{
+					_currentUser.AddRecord(text);
+				} catch (Exception ex) 
+				{
+					MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+				}
 				recordsListView.Items.Add(new ListViewItem(text));
 				inputTextBox.Clear();
 			}
+		}
+
+		private void logOutButton_Click(object sender, EventArgs e)
+		{
+			UsersList.LogOut(_currentUser);
+			Dispose();
 		}
 	}
 }

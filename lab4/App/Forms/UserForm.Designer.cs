@@ -37,6 +37,7 @@ namespace App
 			inputTextBox = new TextBox();
 			recordsListView = new ListView();
 			RecordsColumn = new ColumnHeader();
+			logOutButton = new Button();
 			SuspendLayout();
 			// 
 			// AddButton
@@ -76,11 +77,24 @@ namespace App
 			RecordsColumn.Text = "User's Records";
 			RecordsColumn.Width = 527;
 			// 
+			// logOutButton
+			// 
+			logOutButton.Font = new Font("Microsoft Sans Serif", 9F);
+			logOutButton.Location = new Point(670, 28);
+			logOutButton.Margin = new Padding(3, 4, 3, 4);
+			logOutButton.Name = "logOutButton";
+			logOutButton.Size = new Size(102, 31);
+			logOutButton.TabIndex = 12;
+			logOutButton.Text = "Log out";
+			logOutButton.UseVisualStyleBackColor = true;
+			logOutButton.Click += logOutButton_Click;
+			// 
 			// UserForm
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 562);
+			Controls.Add(logOutButton);
 			Controls.Add(recordsListView);
 			Controls.Add(inputTextBox);
 			Controls.Add(AddButton);
@@ -97,5 +111,6 @@ namespace App
 		private System.Windows.Forms.TextBox inputTextBox;
 		private System.Windows.Forms.ListView recordsListView;
 		private ColumnHeader RecordsColumn;
+		private Button logOutButton;
 	}
 }
