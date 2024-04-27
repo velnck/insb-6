@@ -1,0 +1,22 @@
+[
+  {
+    "Records": [
+      "record 1"
+    ],
+    "Username": "user1",
+    "Password": "password1",
+    "Role": 0
+  },
+  {
+    "Records": [],
+    "Username": "admin1",
+    "Password": "password1",
+    "Role": 1
+  },
+  {
+    "Records": [],
+    "Username": "user2",
+    "Password": "password2",
+    "Role": 0
+  }
+]
