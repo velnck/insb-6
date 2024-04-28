@@ -48,6 +48,7 @@ namespace App
 	{
 		private static List<User> _users = null;
 		public static readonly string FileName = @"D:\univ\labs\s6\исоб\labs\lab4\App\data.json";
+		private static int MaxLoggedInUsers = 3;
 
 		private static User Find(string username)
 		{
@@ -90,6 +91,10 @@ namespace App
 			{
 				if (user.CheckIsPasswordCorrect(password))
 				{
+					if (_users.Where(u => u.IsLoggedIn).Count() >= MaxLoggedInUsers)
+					{
+						throw new Exception("Too many users are logged in.");
+					}
 					user.IsLoggedIn = true;
 					return user;
 				}

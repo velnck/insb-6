@@ -3,13 +3,17 @@
 	public partial class UserForm : Form
 	{
 		private User _currentUser;
-		public UserForm(User currentUser)
+		public UserForm(User user)
 		{
 			InitializeComponent();
-			_currentUser = currentUser;
+			_currentUser = user;
 			foreach (string record in _currentUser.Records)
 			{
 				recordsListView.Items.Add(new ListViewItem(record));
+			}
+			if (_currentUser.Role != Role.Admin)
+			{
+				createUserButton.Enabled = false;
 			}
 		}
 
@@ -21,7 +25,8 @@
 				try
 				{
 					_currentUser.AddRecord(text);
-				} catch (Exception ex) 
+				}
+				catch (Exception ex)
 				{
 					MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
 				}

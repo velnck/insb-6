@@ -1,7 +1,8 @@
 [
   {
     "Records": [
-      "record 1"
+      "record 1",
+      "1234567890123456789012345678901234567890123456789012345678901234567890123456789099999998282742874398"
     ],
     "Username": "user1",
     "Password": "password1",
@@ -17,6 +18,12 @@
     "Records": [],
     "Username": "user2",
     "Password": "password2",
+    "Role": 0
+  },
+  {
+    "Records": [],
+    "Username": "user3",
+    "Password": "password3",
     "Role": 0
   }
 ]
