@@ -1,4 +1,6 @@
-﻿namespace App
+﻿using System.Text.RegularExpressions;
+
+namespace App
 {
 	public partial class UserForm : Form
 	{
@@ -22,6 +24,12 @@
 			string text = inputTextBox.Text;
 			if (text.Length > 0)
 			{
+				if (!Regex.IsMatch(text, @"^[A-Za-z0-9 ]*$"))
+				{
+					MessageBox.Show("Text contains unallowed characters. Allowed characters: A-Z, a-z, 0-9, [space].", 
+						"Error", MessageBoxButtons.OK);
+					return;
+				}
 				try
 				{
 					_currentUser.AddRecord(text);

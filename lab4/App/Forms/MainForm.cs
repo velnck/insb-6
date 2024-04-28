@@ -1,7 +1,10 @@
-﻿namespace App
+﻿using System.Drawing.Text;
+
+namespace App
 {
 	public partial class MainForm : Form
 	{
+		private System.Windows.Forms.Timer _logInButtonTimer = new();
 		public MainForm()
 		{
 			InitializeComponent();
@@ -35,12 +38,21 @@
 					form.Show();
 					usernameTextBox.Clear();
 					passwordTextBox.Clear();
+					_logInButtonTimer.Interval = 5000;
+					_logInButtonTimer.Tick += EnableLogInButton;
+					_logInButtonTimer.Start();
+					logInButton.Enabled = false;
 				}
 				else
 				{
 					MessageBox.Show($"Password is incorrect.", "Wrong password", MessageBoxButtons.OK);
 				}
 			}
+		}
+		private void EnableLogInButton(object sender, EventArgs e)
+		{
+			logInButton.Enabled = true;
+			_logInButtonTimer.Stop();
 		}
 	}
 }
