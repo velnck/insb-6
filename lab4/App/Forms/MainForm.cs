@@ -28,15 +28,7 @@
 				}
 				if (user != null)
 				{
-					Form form;
-					if (user.Role == Role.Admin)
-					{
-						form = new AdminForm();
-					}
-					else
-					{
-						form = new UserForm(user);
-					}
+					Form form = new UserForm(user);
 					form.Location = Location;
 					form.StartPosition = FormStartPosition.Manual;
 					form.FormClosing += delegate { Show(); };

@@ -45,28 +45,29 @@ namespace App
 			usernameTextBox = new TextBox();
 			createUserButton = new Button();
 			splitContainer1 = new SplitContainer();
+			label1 = new Label();
 			((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
 			splitContainer1.Panel1.SuspendLayout();
 			splitContainer1.Panel2.SuspendLayout();
 			splitContainer1.SuspendLayout();
 			SuspendLayout();
 			// 
-			// AddButton
+			// AddRecordButton
 			// 
 			AddRecordButton.Font = new Font("Microsoft Sans Serif", 10F);
-			AddRecordButton.Location = new Point(505, 70);
+			AddRecordButton.Location = new Point(505, 149);
 			AddRecordButton.Margin = new Padding(3, 4, 3, 4);
-			AddRecordButton.Name = "AddButton";
+			AddRecordButton.Name = "AddRecordButton";
 			AddRecordButton.Size = new Size(75, 30);
 			AddRecordButton.TabIndex = 0;
 			AddRecordButton.Text = "Add";
 			AddRecordButton.UseVisualStyleBackColor = true;
-			AddRecordButton.Click += AddButton_Click;
+			AddRecordButton.Click += AddRecordButton_Click;
 			// 
 			// inputTextBox
 			// 
 			inputTextBox.Font = new Font("Microsoft Sans Serif", 10F);
-			inputTextBox.Location = new Point(47, 73);
+			inputTextBox.Location = new Point(47, 151);
 			inputTextBox.Margin = new Padding(3, 4, 3, 4);
 			inputTextBox.MaxLength = 100;
 			inputTextBox.Name = "inputTextBox";
@@ -76,10 +77,10 @@ namespace App
 			// recordsListView
 			// 
 			recordsListView.Columns.AddRange(new ColumnHeader[] { RecordsColumn });
-			recordsListView.Location = new Point(47, 141);
+			recordsListView.Location = new Point(47, 200);
 			recordsListView.Margin = new Padding(3, 4, 3, 4);
 			recordsListView.Name = "recordsListView";
-			recordsListView.Size = new Size(533, 236);
+			recordsListView.Size = new Size(533, 170);
 			recordsListView.TabIndex = 2;
 			recordsListView.UseCompatibleStateImageBehavior = false;
 			recordsListView.View = View.Details;
@@ -92,7 +93,7 @@ namespace App
 			// logOutButton
 			// 
 			logOutButton.Font = new Font("Microsoft Sans Serif", 9F);
-			logOutButton.Location = new Point(1020, 27);
+			logOutButton.Location = new Point(1020, 20);
 			logOutButton.Margin = new Padding(3, 4, 3, 4);
 			logOutButton.Name = "logOutButton";
 			logOutButton.Size = new Size(102, 29);
@@ -105,7 +106,7 @@ namespace App
 			// 
 			titlelabel.AutoSize = true;
 			titlelabel.Font = new Font("Segoe UI", 13F);
-			titlelabel.Location = new Point(148, 81);
+			titlelabel.Location = new Point(148, 106);
 			titlelabel.Name = "titlelabel";
 			titlelabel.Size = new Size(229, 30);
 			titlelabel.TabIndex = 18;
@@ -115,7 +116,7 @@ namespace App
 			// 
 			passwordLabel.AutoSize = true;
 			passwordLabel.Font = new Font("Microsoft Sans Serif", 11F);
-			passwordLabel.Location = new Point(42, 235);
+			passwordLabel.Location = new Point(42, 260);
 			passwordLabel.Name = "passwordLabel";
 			passwordLabel.Size = new Size(92, 24);
 			passwordLabel.TabIndex = 17;
@@ -125,7 +126,7 @@ namespace App
 			// 
 			usernameLabel.AutoSize = true;
 			usernameLabel.Font = new Font("Microsoft Sans Serif", 11F);
-			usernameLabel.Location = new Point(42, 180);
+			usernameLabel.Location = new Point(42, 205);
 			usernameLabel.Name = "usernameLabel";
 			usernameLabel.Size = new Size(97, 24);
 			usernameLabel.TabIndex = 16;
@@ -134,7 +135,7 @@ namespace App
 			// passwordTextBox
 			// 
 			passwordTextBox.Font = new Font("Microsoft Sans Serif", 11F);
-			passwordTextBox.Location = new Point(157, 235);
+			passwordTextBox.Location = new Point(157, 260);
 			passwordTextBox.Margin = new Padding(3, 4, 3, 4);
 			passwordTextBox.Name = "passwordTextBox";
 			passwordTextBox.Size = new Size(279, 28);
@@ -143,30 +144,32 @@ namespace App
 			// usernameTextBox
 			// 
 			usernameTextBox.Font = new Font("Microsoft Sans Serif", 11F);
-			usernameTextBox.Location = new Point(157, 180);
+			usernameTextBox.Location = new Point(157, 205);
 			usernameTextBox.Margin = new Padding(3, 4, 3, 4);
 			usernameTextBox.Name = "usernameTextBox";
 			usernameTextBox.Size = new Size(279, 28);
 			usernameTextBox.TabIndex = 14;
 			// 
-			// createButton
+			// createUserButton
 			// 
 			createUserButton.Font = new Font("Microsoft Sans Serif", 10F);
-			createUserButton.Location = new Point(170, 327);
+			createUserButton.Location = new Point(334, 337);
 			createUserButton.Margin = new Padding(3, 4, 3, 4);
-			createUserButton.Name = "createButton";
+			createUserButton.Name = "createUserButton";
 			createUserButton.Size = new Size(102, 33);
 			createUserButton.TabIndex = 13;
 			createUserButton.Text = "Add";
 			createUserButton.UseVisualStyleBackColor = true;
+			createUserButton.Click += createUserButton_Click;
 			// 
 			// splitContainer1
 			// 
-			splitContainer1.Location = new Point(12, 79);
+			splitContainer1.Location = new Point(12, 56);
 			splitContainer1.Name = "splitContainer1";
 			// 
 			// splitContainer1.Panel1
 			// 
+			splitContainer1.Panel1.BackColor = SystemColors.Control;
 			splitContainer1.Panel1.Controls.Add(createUserButton);
 			splitContainer1.Panel1.Controls.Add(titlelabel);
 			splitContainer1.Panel1.Controls.Add(usernameTextBox);
@@ -176,6 +179,8 @@ namespace App
 			// 
 			// splitContainer1.Panel2
 			// 
+			splitContainer1.Panel2.BackColor = SystemColors.Control;
+			splitContainer1.Panel2.Controls.Add(label1);
 			splitContainer1.Panel2.Controls.Add(recordsListView);
 			splitContainer1.Panel2.Controls.Add(AddRecordButton);
 			splitContainer1.Panel2.Controls.Add(inputTextBox);
@@ -183,10 +188,21 @@ namespace App
 			splitContainer1.SplitterDistance = 479;
 			splitContainer1.TabIndex = 19;
 			// 
+			// label1
+			// 
+			label1.AutoSize = true;
+			label1.Font = new Font("Segoe UI", 13F);
+			label1.Location = new Point(246, 106);
+			label1.Name = "label1";
+			label1.Size = new Size(132, 30);
+			label1.TabIndex = 19;
+			label1.Text = "Add records";
+			// 
 			// UserForm
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = Color.FromArgb(255, 224, 192);
 			ClientSize = new Size(1134, 562);
 			Controls.Add(splitContainer1);
 			Controls.Add(logOutButton);
@@ -216,5 +232,6 @@ namespace App
 		private TextBox usernameTextBox;
 		private Button createUserButton;
 		private SplitContainer splitContainer1;
+		private Label label1;
 	}
 }

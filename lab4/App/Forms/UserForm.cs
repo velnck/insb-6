@@ -17,7 +17,7 @@
 			}
 		}
 
-		private void AddButton_Click(object sender, EventArgs e)
+		private void AddRecordButton_Click(object sender, EventArgs e)
 		{
 			string text = inputTextBox.Text;
 			if (text.Length > 0)
@@ -39,6 +39,39 @@
 		{
 			UsersList.LogOut(_currentUser);
 			Dispose();
+		}
+
+		private void createUserButton_Click(object sender, EventArgs e)
+		{
+			if (_currentUser.Role == Role.Admin)
+			{
+				string username = usernameTextBox.Text;
+				if (username.Length == 0)
+				{
+					MessageBox.Show($"Enter username.", "Invalid username", MessageBoxButtons.OK);
+					return;
+				}
+				if (UsersList.Exists(username))
+				{
+					MessageBox.Show($"User \"{username}\" already exists.", "Invalid username", MessageBoxButtons.OK);
+					return;
+				}
+				string password = passwordTextBox.Text;
+				if (password.Length == 0)
+				{
+					MessageBox.Show($"Enter password.", "Invalid password", MessageBoxButtons.OK);
+					return;
+				}
+				usernameTextBox.Clear();
+				passwordTextBox.Clear();
+				UsersList.AddNewUser(username, password);
+				MessageBox.Show($"User \"{username}\" added.", "User added", MessageBoxButtons.OK);
+			}
+			else
+			{
+				MessageBox.Show($"User must have administrative privileges to complete the action.",
+					"Error", MessageBoxButtons.OK);
+			}
 		}
 	}
 }

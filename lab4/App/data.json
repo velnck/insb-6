@@ -25,5 +25,11 @@
     "Username": "user3",
     "Password": "password3",
     "Role": 0
+  },
+  {
+    "Records": [],
+    "Username": "user4",
+    "Password": "password4",
+    "Role": 0
   }
 ]
