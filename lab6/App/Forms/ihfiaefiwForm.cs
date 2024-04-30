@@ -2,26 +2,26 @@
 
 namespace f_
 {
-	public partial class v_Form : Form
+	public partial class EU_Form : Form
 	{
 		private v_faefkjeifvn z_;
-		public v_Form(v_faefkjeifvn g_)
+		public EU_Form(v_faefkjeifvn g_)
 		{
-			InitializeComponent();
+			EW_();
 			z_ = g_;
 			foreach (string Z_ in z_.I_)
 			{
-				recordsListView.Items.Add(new ListViewItem(Z_));
+				h_.Items.Add(new ListViewItem(Z_));
 			}
 			if (z_.Y_ != FNt_.c_)
 			{
-				createUserButton.Enabled = false;
+				FQ_.Enabled = false;
 			}
 		}
 
 		private void v6_(object l_, EventArgs e_)
 		{
-			string r_ = inputTextBox.Text;
+			string r_ = xC_.Text;
 			if (r_.Length > 0)
 			{
 				if (!Regex.IsMatch(r_, @"^[A-Za-z0-9 ]*$"))
@@ -32,14 +32,22 @@ namespace f_
 				}
 				try
 				{
-					z_.V_(r_);
+					// открытая вставка функции
+					if (z_.A7_)
+					{
+						z_.I_.Add(r_);
+					}
+					else
+					{
+						throw new Exception("User is not logged in.");
+					}
 				}
 				catch (Exception A_)
 				{
 					MessageBox.Show(A_.Message, "Error", MessageBoxButtons.OK);
 				}
-				recordsListView.Items.Add(new ListViewItem(r_));
-				inputTextBox.Clear();
+				h_.Items.Add(new ListViewItem(r_));
+				xC_.Clear();
 			}
 		}
 
@@ -53,7 +61,7 @@ namespace f_
 		{
 			if (z_.Y_ == FNt_.c_)
 			{
-				string rT_ = usernameTextBox.Text;
+				string rT_ = y_.Text;
 				if (rT_.Length == 0)
 				{
 					MessageBox.Show($"Enter username.", "Invalid username", MessageBoxButtons.OK);
@@ -64,14 +72,14 @@ namespace f_
 					MessageBox.Show($"User \"{rT_}\" already exists.", "Invalid username", MessageBoxButtons.OK);
 					return;
 				}
-				string L_ = passwordTextBox.Text;
+				string L_ = I6_.Text;
 				if (L_.Length == 0)
 				{
 					MessageBox.Show($"Enter password.", "Invalid password", MessageBoxButtons.OK);
 					return;
 				}
-				usernameTextBox.Clear();
-				passwordTextBox.Clear();
+				y_.Clear();
+				I6_.Clear();
 				D_.n_(rT_, L_);
 				MessageBox.Show($"User \"{rT_}\" added.", "User added", MessageBoxButtons.OK);
 			}

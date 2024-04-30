@@ -2,18 +2,35 @@
 
 namespace f_
 {
-	public partial class v_hjfhsihfForm : Form
+	public partial class uO_Form : Form
 	{
 		private System.Windows.Forms.Timer E_ = new();
-		public v_hjfhsihfForm()
+		public uO_Form()
 		{
-			InitializeComponent();
+			EW_();
 		}
 
 		private void FN_(object p_, EventArgs HU_)
 		{
-			string i_ = usernameTextBox.Text;
-			string W_ = passwordTextBox.Text;
+			string i_ = y_.Text;
+			string W_ = I6_.Text;
+			// мертвый код
+			string oijn = y_.Text;
+			double afguaweh = 0;
+			foreach (char fhsfeee in oijn)
+			{
+				afguaweh += fhsfeee * (fhsfeee - 50);
+			}
+			bool hfuwaef = false;
+			if (afguaweh > 0)
+			{
+				hfuwaef = true;
+			}
+			if (hfuwaef)
+			{
+				afguaweh -= 50;
+			}
+			// конец мертвого кода
 			if (!D_.XQ_(i_)) 
 			{
 				MessageBox.Show($"User \"{i_}\" is not registered.", "Invalid username", MessageBoxButtons.OK);
@@ -31,17 +48,17 @@ namespace f_
 				}
 				if (S_ != null)
 				{
-					Form HE_ = new v_Form(S_);
+					Form HE_ = new EU_Form(S_);
 					HE_.Location = Location;
 					HE_.StartPosition = FormStartPosition.Manual;
 					HE_.FormClosing += delegate { Show(); };
 					HE_.Show();
-					usernameTextBox.Clear();
-					passwordTextBox.Clear();
+					y_.Clear();
+					I6_.Clear();
 					E_.Interval = 5000;
 					E_.Tick += fF_;
 					E_.Start();
-					logInButton.Enabled = false;
+					F3_.Enabled = false;
 				}
 				else
 				{
@@ -51,7 +68,7 @@ namespace f_
 		}
 		private void fF_(object l_, EventArgs e_)
 		{
-			logInButton.Enabled = true;
+			F3_.Enabled = true;
 			E_.Stop();
 		}
 	}

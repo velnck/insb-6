@@ -1,23 +1,23 @@
 ﻿namespace f_
 {
-	partial class v_hjfhsihfForm
+	partial class uO_Form
 	{
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+		private System.ComponentModel.IContainer zY_ = null;
 
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
+		/// <param name="LB_">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool LB_)
 		{
-			if (disposing && (components != null))
+			if (LB_ && (zY_ != null))
 			{
-				components.Dispose();
+				zY_.Dispose();
 			}
-			base.Dispose(disposing);
+			base.Dispose(LB_);
 		}
 
 		#region Windows Form Designer generated code
@@ -26,64 +26,64 @@
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
-		private void InitializeComponent()
+		private void EW_()
 		{
-			logInButton = new Button();
-			usernameTextBox = new TextBox();
-			passwordTextBox = new TextBox();
-			usernameLabel = new Label();
-			passwordLabel = new Label();
+			F3_ = new Button();
+			y_ = new TextBox();
+			I6_ = new TextBox();
+			p__ = new Label();
+			VO_ = new Label();
 			SuspendLayout();
 			// 
 			// logInButton
 			// 
-			logInButton.Font = new Font("Microsoft Sans Serif", 11F);
-			logInButton.Location = new Point(523, 319);
-			logInButton.Margin = new Padding(3, 4, 3, 4);
-			logInButton.Name = "logInButton";
-			logInButton.Size = new Size(102, 46);
-			logInButton.TabIndex = 0;
-			logInButton.Text = "Log In";
-			logInButton.UseVisualStyleBackColor = true;
-			logInButton.Click += FN_;
+			F3_.Font = new Font("Microsoft Sans Serif", 11F);
+			F3_.Location = new Point(523, 319);
+			F3_.Margin = new Padding(3, 4, 3, 4);
+			F3_.Name = "logInButton";
+			F3_.Size = new Size(102, 46);
+			F3_.TabIndex = 0;
+			F3_.Text = "Log In";
+			F3_.UseVisualStyleBackColor = true;
+			F3_.Click += FN_;
 			// 
 			// usernameTextBox
 			// 
-			usernameTextBox.Font = new Font("Microsoft Sans Serif", 11F);
-			usernameTextBox.Location = new Point(323, 177);
-			usernameTextBox.Margin = new Padding(3, 4, 3, 4);
-			usernameTextBox.Name = "usernameTextBox";
-			usernameTextBox.Size = new Size(302, 28);
-			usernameTextBox.TabIndex = 1;
+			y_.Font = new Font("Microsoft Sans Serif", 11F);
+			y_.Location = new Point(323, 177);
+			y_.Margin = new Padding(3, 4, 3, 4);
+			y_.Name = "usernameTextBox";
+			y_.Size = new Size(302, 28);
+			y_.TabIndex = 1;
 			// 
 			// passwordTextBox
 			// 
-			passwordTextBox.Font = new Font("Microsoft Sans Serif", 11F);
-			passwordTextBox.Location = new Point(323, 239);
-			passwordTextBox.Margin = new Padding(3, 4, 3, 4);
-			passwordTextBox.Name = "passwordTextBox";
-			passwordTextBox.Size = new Size(302, 28);
-			passwordTextBox.TabIndex = 2;
+			I6_.Font = new Font("Microsoft Sans Serif", 11F);
+			I6_.Location = new Point(323, 239);
+			I6_.Margin = new Padding(3, 4, 3, 4);
+			I6_.Name = "passwordTextBox";
+			I6_.Size = new Size(302, 28);
+			I6_.TabIndex = 2;
 			// 
 			// usernameLabel
 			// 
-			usernameLabel.AutoSize = true;
-			usernameLabel.Font = new Font("Microsoft Sans Serif", 11F);
-			usernameLabel.Location = new Point(175, 179);
-			usernameLabel.Name = "usernameLabel";
-			usernameLabel.Size = new Size(97, 24);
-			usernameLabel.TabIndex = 3;
-			usernameLabel.Text = "Username";
+			p__.AutoSize = true;
+			p__.Font = new Font("Microsoft Sans Serif", 11F);
+			p__.Location = new Point(175, 179);
+			p__.Name = "usernameLabel";
+			p__.Size = new Size(97, 24);
+			p__.TabIndex = 3;
+			p__.Text = "Username";
 			// 
 			// passwordLabel
 			// 
-			passwordLabel.AutoSize = true;
-			passwordLabel.Font = new Font("Microsoft Sans Serif", 11F);
-			passwordLabel.Location = new Point(175, 241);
-			passwordLabel.Name = "passwordLabel";
-			passwordLabel.Size = new Size(92, 24);
-			passwordLabel.TabIndex = 4;
-			passwordLabel.Text = "Password";
+			VO_.AutoSize = true;
+			VO_.Font = new Font("Microsoft Sans Serif", 11F);
+			VO_.Location = new Point(175, 241);
+			VO_.Name = "passwordLabel";
+			VO_.Size = new Size(92, 24);
+			VO_.TabIndex = 4;
+			VO_.Text = "Password";
 			// 
 			// MainForm
 			// 
@@ -91,11 +91,11 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = Color.FromArgb(255, 224, 192);
 			ClientSize = new Size(800, 480);
-			Controls.Add(passwordLabel);
-			Controls.Add(usernameLabel);
-			Controls.Add(passwordTextBox);
-			Controls.Add(usernameTextBox);
-			Controls.Add(logInButton);
+			Controls.Add(VO_);
+			Controls.Add(p__);
+			Controls.Add(I6_);
+			Controls.Add(y_);
+			Controls.Add(F3_);
 			Margin = new Padding(3, 4, 3, 4);
 			Name = "MainForm";
 			Text = "App";
@@ -105,11 +105,11 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button logInButton;
-		private System.Windows.Forms.TextBox usernameTextBox;
-		private System.Windows.Forms.TextBox passwordTextBox;
-		private System.Windows.Forms.Label usernameLabel;
-		private System.Windows.Forms.Label passwordLabel;
+		private System.Windows.Forms.Button F3_;
+		private System.Windows.Forms.TextBox y_;
+		private System.Windows.Forms.TextBox I6_;
+		private System.Windows.Forms.Label p__;
+		private System.Windows.Forms.Label VO_;
 	}
 }
 

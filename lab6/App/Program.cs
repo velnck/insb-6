@@ -9,7 +9,7 @@ namespace f_
 		static void Main()
 		{
 			ApplicationConfiguration.Initialize();
-			Application.Run(new v_hjfhsihfForm());
+			Application.Run(new uO_Form());
 		}
 	}
 }

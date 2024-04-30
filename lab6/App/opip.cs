@@ -35,17 +35,6 @@ namespace f_
 		{
 			return L_ == v8_;
 		}
-		public void V_(string Z_)
-		{
-			if (A7_)
-			{
-				I_.Add(Z_);
-			}
-			else
-			{
-				throw new Exception("User is not logged in.");
-			}
-		}
 	}
 	public class D_
 	{
