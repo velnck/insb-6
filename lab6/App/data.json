@@ -1,0 +1,44 @@
+[
+  {
+    "Records": [
+      "record 1",
+      "1234567890123456789012345678901234567890123456789012345678901234567890123456789099999998282742874398",
+      "1"
+    ],
+    "Username": "user1",
+    "Password": "password1",
+    "Role": 0
+  },
+  {
+    "Records": [
+      "rec"
+    ],
+    "Username": "admin1",
+    "Password": "password1",
+    "Role": 1
+  },
+  {
+    "Records": [],
+    "Username": "user2",
+    "Password": "password2",
+    "Role": 0
+  },
+  {
+    "Records": [],
+    "Username": "user3",
+    "Password": "password3",
+    "Role": 0
+  },
+  {
+    "Records": [],
+    "Username": "user4",
+    "Password": "password4",
+    "Role": 0
+  },
+  {
+    "Records": [],
+    "Username": "user5",
+    "Password": "password5",
+    "Role": 0
+  }
+]
